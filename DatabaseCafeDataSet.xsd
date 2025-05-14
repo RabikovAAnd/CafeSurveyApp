@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DatabaseCafeDataSet" targetNamespace="http://tempuri.org/DatabaseCafeDataSet.xsd" xmlns:mstns="http://tempuri.org/DatabaseCafeDataSet.xsd" xmlns="http://tempuri.org/DatabaseCafeDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="DatabaseCafeConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DatabaseCafeConnectionString (Settings)" PropertyReference="ApplicationSettings.CafeSurveyApp.Properties.Settings.GlobalReference.Default.DatabaseCafeConnectionString" Provider="System.Data.OleDb" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="menuTableAdapter" GeneratorDataComponentClassName="menuTableAdapter" Name="menu" UserDataComponentName="menuTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DatabaseCafeConnectionString (Settings)" DbObjectName="menu" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Код, Название, Цена, Калорийность FROM menu</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="surveyTableAdapter" GeneratorDataComponentClassName="surveyTableAdapter" Name="survey" UserDataComponentName="surveyTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="DatabaseCafeConnectionString (Settings)" DbObjectName="survey" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Код_Записи, Вкус, Цена, Код_menu FROM survey</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DatabaseCafeDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="DatabaseCafeDataSet" msprop:Generator_DataSetName="DatabaseCafeDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="menu" msprop:Generator_RowEvHandlerName="menuRowChangeEventHandler" msprop:Generator_RowDeletedName="menuRowDeleted" msprop:Generator_RowDeletingName="menuRowDeleting" msprop:Generator_RowEvArgName="menuRowChangeEvent" msprop:Generator_TablePropName="menu" msprop:Generator_RowChangedName="menuRowChanged" msprop:Generator_RowChangingName="menuRowChanging" msprop:Generator_TableClassName="menuDataTable" msprop:Generator_RowClassName="menuRow" msprop:Generator_TableVarName="tablemenu" msprop:Generator_UserTableName="menu">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="survey" msprop:Generator_RowEvHandlerName="surveyRowChangeEventHandler" msprop:Generator_RowDeletedName="surveyRowDeleted" msprop:Generator_RowDeletingName="surveyRowDeleting" msprop:Generator_RowEvArgName="surveyRowChangeEvent" msprop:Generator_TablePropName="survey" msprop:Generator_RowChangedName="surveyRowChanged" msprop:Generator_RowChangingName="surveyRowChanging" msprop:Generator_TableClassName="surveyDataTable" msprop:Generator_RowClassName="surveyRow" msprop:Generator_TableVarName="tablesurvey" msprop:Generator_UserTableName="survey">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
