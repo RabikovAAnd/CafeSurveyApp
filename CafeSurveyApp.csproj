@@ -71,6 +71,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DatabaseCafeDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseHelper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

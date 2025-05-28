@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace CafeSurveyApp
@@ -37,21 +38,33 @@ namespace CafeSurveyApp
 
             try
             {
-                // Добавляем новую запись опроса
-                mainForm.SurveyBindingSource.AddNew();
+                // Получаем выбранное блюдо
+                int dishId = (int)dishComboBox.SelectedValue;
+                int taste = (int)tasteRating.Value;
+                int price = (int)priceRating.Value;
+                DateTime date = DateTime.Now;
 
-                var currentRow = (System.Data.DataRowView)mainForm.SurveyBindingSource.Current;
-                currentRow["DishID"] = dishComboBox.SelectedValue;
-                currentRow["Taste"] = tasteRating.Value;
-                currentRow["PriceRating"] = priceRating.Value;
-                currentRow["Date"] = DateTime.Now;
+                // SQL-запрос для вставки нового опроса
+                string query = $"INSERT INTO survey (DishID, Taste, PriceRating, Date) " +
+                              $"VALUES ({dishId}, {taste}, {price}, #{date:MM/dd/yyyy}#)";
 
-                // Сохраняем изменения
-                mainForm.SurveyBindingSource.EndEdit();
-                mainForm.SurveyTableAdapter.Update(mainForm.CafeDataSet.Survey);
+                // Выполняем запрос
+                int rowsAffected = DatabaseHelper.ExecuteNonQuery(query);
 
-                MessageBox.Show("Спасибо за ваш отзыв!");
-                this.Close();
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Спасибо за ваш отзыв!");
+
+                    // Обновляем данные в главной форме
+                    mainForm.SurveyBindingSource.EndEdit();
+                    mainForm.SurveyAdapter.Update(mainForm.CafeDataSet, "Survey");
+
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось сохранить опрос.");
+                }
             }
             catch (Exception ex)
             {
