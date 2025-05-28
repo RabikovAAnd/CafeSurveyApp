@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace CafeSurveyApp
@@ -7,60 +8,35 @@ namespace CafeSurveyApp
     {
         private readonly Form1 mainForm;
 
-        public SurveyForm(Form1 form)
+        public SurveyForm(Form1 mainForm)
         {
             InitializeComponent();
-            mainForm = form;
+            this.mainForm = mainForm;
+            LoadDishes();
         }
 
-        private void SurveyForm_Load(object sender, EventArgs e)
+        private void LoadDishes()
         {
-            // Заполняем список блюд
-            dishComboBox.DataSource = mainForm.MenuBindingSource;
+            dishComboBox.DataSource = mainForm.cafeDataSet.Tables["Menu"];
             dishComboBox.DisplayMember = "Name";
             dishComboBox.ValueMember = "ID";
-
-            // Настройка NumericUpDown для оценок
-            tasteRating.Minimum = 1;
-            tasteRating.Maximum = 5;
-            priceRating.Minimum = 1;
-            priceRating.Maximum = 5;
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
+        private void submitButton_Click(object sender, EventArgs e)
         {
-            if (dishComboBox.SelectedItem == null)
-            {
-                MessageBox.Show("Пожалуйста, выберите блюдо!");
-                return;
-            }
+            // Добавление новой записи опроса
+            mainForm.surveyBindingSource.AddNew();
+            DataRowView newRow = (DataRowView)mainForm.surveyBindingSource.Current;
 
-            try
-            {
-                // Добавляем новую запись опроса
-                mainForm.SurveyBindingSource.AddNew();
+            newRow["MenuID"] = dishComboBox.SelectedValue;
+            newRow["TasteRating"] = tasteRatingNumeric.Value;
+            newRow["PriceRating"] = priceRatingNumeric.Value;
+            newRow["Date"] = DateTime.Now;
 
-                var currentRow = (System.Data.DataRowView)mainForm.SurveyBindingSource.Current;
-                currentRow["DishID"] = dishComboBox.SelectedValue;
-                currentRow["Taste"] = tasteRating.Value;
-                currentRow["PriceRating"] = priceRating.Value;
-                currentRow["Date"] = DateTime.Now;
+            mainForm.surveyBindingSource.EndEdit();
+            mainForm.surveyAdapter.Update(mainForm.cafeDataSet, "Survey");
 
-                // Сохраняем изменения
-                mainForm.SurveyBindingSource.EndEdit();
-                mainForm.SurveyTableAdapter.Update(mainForm.CafeDataSet.Survey);
-
-                MessageBox.Show("Спасибо за ваш отзыв!");
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при сохранении опроса: {ex.Message}");
-            }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
+            MessageBox.Show("Спасибо за ваш отзыв!");
             this.Close();
         }
     }
